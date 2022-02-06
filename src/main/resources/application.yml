@@ -1,14 +1,43 @@
+#spring:
+#  jpa:
+#    generate-ddl: true
+#    hibernate:
+#      ddl-auto: create-drop
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL57Dialect
+#        format_sql: true
+#        use_sql_comments: true
+#  datasource:
+#    hikari:
+#      driver-class-name: org.h2.Driver
+#      username: sa
+#      password:
+#      url: jdbc:h2:mem:testdb;MODE=MySQL
+#
+
+# TODO - Hikari Datasource를 사용할 경우 테이블 자동 생성이 안되는 데 왜인지 파악 필요
 spring:
-  jpa:
-    database: H2
-    hibernate:
-      ddl-auto: create-drop
   datasource:
-    hikari:
-      driver-class-name: org.h2.Driver
-      username: sa
-      password:
-      jdbc-url: jdbc:h2:mem:testdb;
-  sql:
-    init:
-      mode: always
+    url: jdbc:h2:mem:testdb;MODE=MySQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      # Entity 생성 과정에서 기존 테이블 처리에 대한 property
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL57Dialect
+        # 쿼리 보는 용도 (System.out으로 출력)
+        # show_sql: true
+        format_sql: true
+        use_sql_comments: true
+
+# Logger로 출력
+logging.level:
+  org.hibernate.SQL: debug
+  # Logger로 출력되는 쿼리의 binding 값을 출력
+  org.hibernate.type: trace
