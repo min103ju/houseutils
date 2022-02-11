@@ -18,10 +18,11 @@ public class BrokerageRule {
     @Nullable
     private Long limitAmount;
 
+    public BrokerageRule(Long lessThan, Double brokeragePercent) {
+        this(lessThan, brokeragePercent, Long.MAX_VALUE);
+    }
+
     public Long calcMaxBrokerage(Long price) {
-        if (limitAmount == null) {
-            return multiplyPercent(price);
-        }
         return Math.min(multiplyPercent(price), limitAmount);
     }
 
